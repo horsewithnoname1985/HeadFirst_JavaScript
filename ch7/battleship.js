@@ -60,6 +60,7 @@ var controller = {
 
   processGuess: function(guess) {
     var location = parseGuess(guess);
+    console.log(location)
     if (location) {
       this.guesses++;
       var hit = model.fire(location);
@@ -142,9 +143,9 @@ var model = {
       do {
         locations = this.generateShip();
       } while (this.collision(locations));
-      this.ships[i].location = location
-      console.log(this.ships[i].location)
+      this.ships[i].locations = locations;
     }
+    // console.log(this.ships);
   },
 
   generateShip: function() {
@@ -153,16 +154,15 @@ var model = {
     var col;
     if (direction === 1) {
       row = Math.floor(Math.random() * this.boardSize);
-      column = Math.floor(Math.random() * (this.boardSize - (this.shipLength + 1)));
+      col = Math.floor(Math.random() * (this.boardSize - (this.shipLength + 1)));
     } else {
       row = Math.floor(Math.random() * (this.boardSize - (this.shipLength + 1)));
-      row = Math.floor(Math.random() * this.boardSize);
+      col = Math.floor(Math.random() * this.boardSize);
     }
 
     var newShipLocations = [];
     for (var i = 0; i < this.shipLength; i++) {
       if (direction === 1) {
-        console.log(1 + "" + 2);
         newShipLocations.push(row + "" + (col + i));
       } else {
         newShipLocations.push((row + i) + "" + col);
